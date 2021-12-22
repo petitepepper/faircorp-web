@@ -1,7 +1,8 @@
 <template>
 	<div>
 		<h3>Room List</h3>
-		<el-table :data="tableData" style="width: 100%">
+		<el-button @click="clearFilter">Clear All Filters</el-button>
+		<el-table :data="tableData" ref="filterTable" style="width: 100%">
 			<el-table-column type="expand">
 				<template slot-scope="props">
 					<el-form label-position="left" inline class="demo-table-expand">
@@ -10,7 +11,7 @@
 								{{ heater.name }} ({{heater.heaterStatus}})
 							</li>
 						</el-form-item>
-						
+
 						<el-form-item label="Windows" class="itemlist">
 							<li v-for="window in props.row.windows" :key="window.id">
 								{{ window.name }} ({{window.windowStatus}})
@@ -26,13 +27,14 @@
 			</el-table-column>
 			<el-table-column prop="floor" label="Floor" width="180">
 			</el-table-column>
-			<el-table-column prop="currentTemperature" label="Current Temperature" width="180">
+			<el-table-column prop="currentTemperature" label="Current Temperature" sortable width="180">
 			</el-table-column>
-			<el-table-column prop="targetTemperature" label="Target Temperature" width="180">
+			<el-table-column prop="targetTemperature" label="Target Temperature" sortable width="180">
 			</el-table-column>
-			<el-table-column prop="buildingName" label="Building Name" width="180">
+			<el-table-column prop="buildingName" label="Building Name" sortable :filters=buildingFilters
+				:filter-method="filterHandler" width="180">
 			</el-table-column>
-			
+
 		</el-table>
 	</div>
 </template>
@@ -50,7 +52,14 @@
 
 		data() {
 			return {
-				tableData: []
+				tableData: [],
+				buildingFilters: [{
+					text: 'Espace Fauriel',
+					value: 'Espace Fauriel'
+				}, {
+					text: 'Cours Fauriel',
+					value: 'Cours Fauriel'
+				}]
 			}
 		},
 
@@ -63,17 +72,23 @@
 					this.tableData = response.data;
 					console.log(this.tableData)
 				})
+			},
+			filterHandler(value, row, column) {
+				const property = column['property'];
+				return row[property] === value;
+			},
+			clearFilter() {
+				this.$refs.filterTable.clearFilter();
 			}
 		}
 	}
 </script>
 
 <style>
-	.itemlist{
+	.itemlist {
 		background-color: #F5F7FA;
 		width: 500px;
 		padding-right: 10px;
 		padding-left: 10px;
 	}
-	
 </style>

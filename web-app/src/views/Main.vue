@@ -21,9 +21,10 @@
 					<el-submenu index="2">
 						<template slot="title"><span class="navigation">About Author</span></template>
 						<el-menu-item-group>
-							<el-menu-item index="2-1" @click="toExternal(1)">LinkedIn</el-menu-item>
-							<el-menu-item index="2-2" @click="toExternal(2)">Github</el-menu-item>
-							<el-menu-item index="2-3">Personal Page</el-menu-item>
+							<el-menu-item index="2-1">
+								<router-link to="/author">Who am I</router-link>
+							</el-menu-item>
+						
 						</el-menu-item-group>
 					</el-submenu>
 				</el-menu>
@@ -54,19 +55,7 @@
 				githubURL:"https://github.com/petitepepper"
 			};
 		},
-		methods:{
-			toExternal:function(option){
-				if(option==1){
-					console.log("linkedin")
-					window.location.herf=this.linkedinURL;
-				}
-				else if(option==2){
-					console.log("github")
-					window.location.herf=this.githubURL;
-				}
-
-			}
-		}
+		
 	}
 </script>
 
