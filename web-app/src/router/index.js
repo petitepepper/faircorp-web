@@ -9,7 +9,7 @@ Vue.use(Router);
 
 export default new Router({
 	routes:[
-		
+		// Options in faircorp
 		{
 			path:"/main",
 			name:"Main",
@@ -35,6 +35,8 @@ export default new Router({
 				},
 			]
 		},
+		
+		
 
 	]
 })

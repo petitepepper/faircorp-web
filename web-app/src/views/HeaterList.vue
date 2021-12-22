@@ -12,6 +12,11 @@
 			</el-table-column>
 			<el-table-column prop="roomName" label="Room Name" width="180">
 			</el-table-column>
+			<el-table-column label="Operation" width="180">
+				<template slot-scope="scope">
+				<el-button @click="switchStatus(scope.row.id)">SWITCH</el-button>
+				</template>
+			</el-table-column>
 		</el-table>
 	</div>
 </template>
@@ -40,8 +45,16 @@
 					url: 'http://ye.wenjing.cleverapps.io/api/heaters',
 				}).then(response => {
 					this.tableData = response.data;
-					console.log(this.tableData)
 				})
+			},
+			
+			switchStatus:function(id){
+				console.log("heater id : " + id)
+				this.axios({
+					method:'put',
+					url: 'http://ye.wenjing.cleverapps.io/api/heaters/'+id+'/switch'
+				});
+				window.location.reload(); //refresh page to show current status 
 			}
 		}
 	}

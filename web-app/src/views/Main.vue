@@ -5,7 +5,7 @@
 			<el-aside width="200px">
 				<el-menu :default-openeds="['1']">
 					<el-submenu index="1">
-						<template slot="title">Faircorp</template>
+						<template slot="title"><span class="navigation">Faircorp</span></template>
 						<el-menu-item-group>
 							<el-menu-item index="1-1">
 								<router-link to="/faircorp/rooms">Room List</router-link>
@@ -19,10 +19,10 @@
 						</el-menu-item-group>
 					</el-submenu>
 					<el-submenu index="2">
-						<template slot="title">About Author</template>
+						<template slot="title"><span class="navigation">About Author</span></template>
 						<el-menu-item-group>
-							<el-menu-item index="2-1">LinkedIn</el-menu-item>
-							<el-menu-item index="2-2">Github</el-menu-item>
+							<el-menu-item index="2-1" @click="toExternal(1)">LinkedIn</el-menu-item>
+							<el-menu-item index="2-2" @click="toExternal(2)">Github</el-menu-item>
 							<el-menu-item index="2-3">Personal Page</el-menu-item>
 						</el-menu-item-group>
 					</el-submenu>
@@ -47,7 +47,26 @@
 
 <script>
 	export default {
-		name: "Main"
+		name: "Main",
+		data(){
+			return{
+				linkedinURL:"https://www.linkedin.com/in/wenjing-ye-794116202/",
+				githubURL:"https://github.com/petitepepper"
+			};
+		},
+		methods:{
+			toExternal:function(option){
+				if(option==1){
+					console.log("linkedin")
+					window.location.herf=this.linkedinURL;
+				}
+				else if(option==2){
+					console.log("github")
+					window.location.herf=this.githubURL;
+				}
+
+			}
+		}
 	}
 </script>
 
@@ -60,5 +79,11 @@
 
 	.el-aside {
 		color: #333;
+	}
+	
+	.navigation{
+		font:"microsoft sans serif";
+		font-size:large;
+		font-weight: 300;
 	}
 </style>
